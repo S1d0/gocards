@@ -14,8 +14,8 @@ type deck []string
 func newDeck() deck {
 	cards := deck{}
 
-	cardSuits := []string{"Spades,", "Diamods", "Hearts", "Clubs"}
-	cardValues := []string{"Ace", "Two,", "Three", "Four"}
+	cardSuits := []string{"Spades", "Diamods", "Hearts", "Clubs"}
+	cardValues := []string{"Ace", "Two", "Three", "Four"}
 
 	for _, cardSuit := range cardSuits {
 		for _, cardValue := range cardValues {
@@ -39,7 +39,7 @@ func deal(d deck, handsize int) (deck, deck) {
 }
 
 func (d deck) toString() string {
-	return strings.Join([]string(d), "")
+	return strings.Join([]string(d), ",")
 }
 
 func (d deck) shufleDeck() {
