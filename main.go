@@ -1,19 +1,40 @@
 package main
 
+import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+)
+
+type DadJokeRespone struct {
+	ID     string `json:"id"`
+	Joke   string `json:"joke"`
+	Status int    `json:"status"`
+}
+
 func main() {
-	cards := newDeck()
-	cards.shufleDeck()
 
-	cards.print()
-	// cards.print()
+	fmt.Println("Calling API ...")
+	get()
+}
 
-	// hand, remainingDeck := deal(cards, 5)
+func get() {
+	fmt.Println("Calling API ...")
+	resp, err := http.Get("https://icanhazdadjoke.com/")
 
-	// hand.print()
-	// remainingDeck.print()
-	// fmt.Println(hand.toString())
-	// hand.saveToFile("myfile.txt")
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-	// newCarsd := newDeckFromFile("myfile1.txt")
-	// fmt.Println("Cards from file: ", newCarsd)
+	// Defer ensures that the resp.Body.Close() is executed at the end of the method
+	// Without it, possible resource leaks
+	defer resp.Body.Close()
+
+	responseBytes, _ := ioutil.ReadAll(resp.Body)
+	var dadJokeResponse DadJokeRespone
+	json.Unmarshal(responseBytes, &dadJokeResponse)
+
+	fmt.Println(dadJokeResponse)
 }
