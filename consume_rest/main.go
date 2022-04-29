@@ -6,7 +6,9 @@ import (
 )
 
 func main() {
-	dadJoke := dadjokeconsumer.ConsumeJoke()
+	dadJokeClient := dadjokeconsumer.NewClient()
+
+	dadJoke := dadJokeClient.GetJoke()
 
 	fmt.Println("Call status", dadJoke.Status)
 	fmt.Println("Call ID", dadJoke.ID)
