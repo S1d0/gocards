@@ -10,12 +10,6 @@ type Client struct {
 	httpClient *http.Client
 }
 
-type DadJoke struct {
-	ID     string `json:"id"`
-	Joke   string `json:"joke"`
-	Status int    `json:"status"`
-}
-
 func NewClient() *Client {
 	baseUrl := url.URL{
 		Scheme: "https",
